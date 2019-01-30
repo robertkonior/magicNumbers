@@ -1,4 +1,10 @@
 package app.validators.filevalidators;
 
-public class FileValidator {
+import java.util.Arrays;
+
+public abstract class FileValidator {
+
+    boolean validate(byte[] byteFromFile , byte[] magicNumber) {
+       return Arrays.equals(byteFromFile, magicNumber);
+    }
 }
