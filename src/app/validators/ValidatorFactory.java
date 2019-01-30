@@ -7,9 +7,11 @@ import app.validators.filevalidators.TextValidator;
 
 public class ValidatorFactory {
 
-    public FileValidator getExtensionValidator(String extension) {
+    public static FileValidator getExtensionValidator(String extension) {
         switch (extension) {
             case "jpg" :
+                return new JpgValidator();
+            case "jpeg" :
                 return new JpgValidator();
             case "gif" :
                 return new GifValidator();
