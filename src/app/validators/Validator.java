@@ -22,7 +22,7 @@ public class Validator {
         if (isValidExtensions()) {
             FileValidator fileValidator = ValidatorFactory.getExtensionValidator(getExtension(path));
             if (fileValidator != null && fileValidator.isValidExtension(path)) {
-
+                return true;
             }
         }
 

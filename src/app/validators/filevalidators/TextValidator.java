@@ -1,6 +1,6 @@
 package app.validators.filevalidators;
 
-public class TextValidator extends FileValidator {
+public class TextValidator implements FileValidator {
     @Override
     public boolean isValidExtension(String path) {
         return false;

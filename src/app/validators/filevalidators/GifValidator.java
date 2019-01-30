@@ -1,24 +1,39 @@
 package app.validators.filevalidators;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class GifValidator extends FileValidator{
+public class GifValidator implements FileValidator {
 
-    private Set<byte[]> singatures ;
+    private List<byte[]> magicSignatures;
 
     public GifValidator() {
-        this.singatures = getSingatures();
+        this.magicSignatures = getMagicSignatures();
     }
 
     @Override
     public boolean isValidExtension(String path) {
+        int magicSignatureLength = magicSignatures.get(1).length;
+        byte[] fileSignature = new byte[magicSignatureLength];
+        try (FileInputStream inputStream = new FileInputStream(path)) {
+            int fileSignatureLength = inputStream.read(fileSignature);
+            if (fileSignatureLength < magicSignatureLength) return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (byte[] signature : magicSignatures) {
+            if (Arrays.equals(signature, fileSignature)) return true;
+        }
         return false;
     }
 
-    private Set<byte[]> getSingatures() {
-        Set<byte[]> singatures = new HashSet<>();
-        singatures.add(new byte[]{71, 73, 70, 56, 55, 97});
-        singatures.add(new byte[]{71, 73, 70, 56, 57, 97});
+    private List<byte[]> getMagicSignatures() {
+        List<byte[]> signatures = new ArrayList<>();
+        signatures.add(new byte[]{71, 73, 70, 56, 55, 97});
+        signatures.add(new byte[]{71, 73, 70, 56, 57, 97});
+        return signatures;
     }
 }
