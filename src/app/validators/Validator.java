@@ -11,23 +11,24 @@ public class Validator {
     private String path;
     private List<String> listSupportedExtensions;
     private static final String NOT_SUPPORTED = "Not supported this extension, sorry.";
+    private static final String NOT_RECOGNIZED= "Extension assigned to the file is unrecognizable";
+    private static final String CORRECT_EXT = "This signed extension is correct";
 
     public Validator(String path) {
         this.path = path;
         this.listSupportedExtensions = getListSupportedExtensions();
     }
 
-    public boolean isValid() {
+    public void isValid() {
         String extension = getExtension(path);
         if (isValidExtensions()) {
             FileValidator fileValidator = ValidatorFactory.getExtensionValidator(extension);
             if (fileValidator != null && fileValidator.isValidExtension(path)) {
-                return true;
+                System.out.println(CORRECT_EXT);
+                return ;
             }
             findOtherExtension(extension);
         }
-
-        return false;
     }
 
     private void findOtherExtension(String ext) {
@@ -41,7 +42,7 @@ public class Validator {
                 return;
             }
         }
-        System.out.println(NOT_SUPPORTED);
+        System.out.println(NOT_RECOGNIZED);
     }
 
     private boolean isValidExtensions() {
@@ -49,7 +50,6 @@ public class Validator {
         if (listSupportedExtensions.contains(extensions)) return true;
         throw new NotSupportedException(NOT_SUPPORTED);
     }
-
 
     private String getExtension(String path) {
         return path.substring(path.lastIndexOf(".") + 1).toLowerCase();
