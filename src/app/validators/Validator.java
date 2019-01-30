@@ -1,4 +1,6 @@
-package app.Validators;
+package app.validators;
+
+import app.exception.NotSupportedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +15,18 @@ public class Validator {
         this.listSupportedExtensions = getListSupportedExtensions();
     }
 
-    public boolean isValidExtensions() {
+    public boolean isValid(){
+
+        if (isValidExtensions()) {
+
+        }
+
+    }
+
+    private boolean isValidExtensions() {
         String extensions = getExtension(path);
         if (listSupportedExtensions.contains(extensions)) return true;
-        System.out.println("not supported extension");
-        return false;
+        throw new NotSupportedException("not supported exception");
     }
 
 

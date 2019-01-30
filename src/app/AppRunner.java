@@ -9,6 +9,6 @@ public class AppRunner {
         System.out.println("enter file path to validate");
         Scanner scanner = new Scanner(System.in);
         String filePath = scanner.nextLine();
-        Validator
+
     }
 }
