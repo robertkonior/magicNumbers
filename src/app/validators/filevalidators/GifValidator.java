@@ -32,7 +32,7 @@ public class GifValidator implements FileValidator {
 
     private List<byte[]> getMagicSignatures() {
         List<byte[]> signatures = new ArrayList<>();
-        signatures.add(new byte[]{71, 73, 70, 56, 55, 97});
+        signatures.add(new byte[]{-1, -40, -1, -37});
         signatures.add(new byte[]{71, 73, 70, 56, 57, 97});
         return signatures;
     }
